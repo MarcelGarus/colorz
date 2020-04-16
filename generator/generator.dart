@@ -4,12 +4,14 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:console/console.dart' hide Color;
+import 'package:dartx/dartx.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 import 'package:mustache/mustache.dart';
 
 const _url = 'https://colornames.org/download/colornames.zip';
 const _generatedFilePath = 'lib/colorz.dart';
+const _numberOfColors = 10000;
 
 Future<void> main() async {
   print('Hello.');
@@ -18,9 +20,9 @@ Future<void> main() async {
   final unzipped = await _runTask('Unzipping data...', () => _unzip(data));
   final parsed = await _runTask('Parsing data...', () => _parse(unzipped));
   final sorted = await _runTask(
-      'Sorting ${parsed.length} colors...', () => _sortByPopularity(parsed));
-  final source = await _runTask(
-      'Generating source...', () => _generateSource(sorted.take(1000000)));
+      'Preparing identifiers...', () => _prepareIdentifiers(parsed.toList()));
+  final source = await _runTask('Generating source...',
+      () => _generateSource(sorted.take(_numberOfColors)));
   await _runTask(
       'Writing to $_generatedFilePath...', () => _writeSource(source));
   print('Done.');
@@ -103,6 +105,7 @@ String _nameToMethodName(String colorName) {
   final words = colorName
       .replaceAll("'", '')
       .replaceAll('-', ' ')
+      .replaceAll('/', ' ')
       .split(' ')
       .where((word) => word.isNotEmpty)
       .toList();
@@ -116,8 +119,26 @@ String _nameToMethodName(String colorName) {
   return words.join();
 }
 
-List<NamedColor> _sortByPopularity(Iterable<NamedColor> colors) {
-  return colors.toList()..sort((a, b) => b.upvotes.compareTo(a.upvotes));
+List<NamedColor> _prepareIdentifiers(List<NamedColor> colors) {
+  final reservedNames = ['class', 'switch', 'on', 'in'];
+
+  // Dart identifiers cannot start with numbers or other characters.
+  colors = colors
+      .where((color) => color.name.startsWith(RegExp('[a-z]|[A-Z]')))
+      .where((color) => !reservedNames.contains(color.name))
+      .toList();
+
+  // Because we turn color names into Dart identifiers, two names may map to the
+  // same identifier. For example, "Some blue" and "Some Blue" both map to
+  // "someBlue". In these cases, we choose the more popular color.
+  final colorsByName = colors.groupBy((color) => color.name);
+  colors = <NamedColor>[
+    for (final name in colorsByName.keys)
+      colorsByName[name].reduce((a, b) => a.upvotes > b.upvotes ? a : b),
+  ];
+
+  // Sort colors by popularity.
+  return colors..sort((a, b) => b.upvotes.compareTo(a.upvotes));
 }
 
 String _generateSource(Iterable<NamedColor> colors) {
