@@ -7,7 +7,7 @@ Meet `Colorz.arabicaMint`, `Colorz.pickleyCactus` and `Colorz.margesHair`!
 
 🎨 On [colornames.org](https://colornames.org/) people from all over the word come together to name colors.
 This package makes the 9.000 most upvoted colors available in your Flutter app!
-That's the best 0.053% of all 16.7 million RGB colors!
+That's the best [0.0536 %](https://www.google.com/search?q=9000%2F256%5E3) of all 16.7 million RGB colors!
 
 ⚠️ **Disclaimer:**
 The color names are chosen by the community and are not censored. Therefore, color names may include words considered offensive, vulgar or obscene.
