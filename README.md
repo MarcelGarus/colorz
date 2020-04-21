@@ -9,10 +9,6 @@ Meet `Colorz.arabicaMint`, `Colorz.pickleyCactus` and `Colorz.margesHair`!
 This package makes the 9.000 most upvoted colors available in your Flutter app!
 That's the best 0.053% of all 16.7 million RGB colors!
 
-🤔 **Why only use the top 9.000 colors and not something round, like the top 10.000?**
-[pub.dev](https://pub.dev/) runs dartdoc with limited space.
-![pub error](pub_error.jpg)
-
 ⚠️ **Disclaimer:**
 The color names are chosen by the community and are not censored. Therefore, color names may include words considered offensive, vulgar or obscene.
 
@@ -23,3 +19,7 @@ If you find any issues or have ideas for improvements for this package, don't he
 📦 **Updates of this package:**
 From time to time, I'll re-generate the `Colorz` and upload a major version upgrade to [pub.dev](https://pub.dev/) (because there may be incompatibilities with former versions).
 If you want to generate the `Colorz` yourself, go into the root directory of the [<kbd>colorz</kbd>](https://github.com/marcelgarus/colorz) package and run `dart generator/generator.dart`.
+
+🤔 **Why only use the top 9.000 colors and not something round, like the top 10.000?**
+[pub.dev](https://pub.dev/) runs dartdoc with limited space.
+![pub error](pub_error.jpg)
