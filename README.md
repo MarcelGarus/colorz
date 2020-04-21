@@ -2,12 +2,31 @@ You're creating an app and trying out different `Colors`? A little `Colors.green
 There are so many more inspiring colors you're missing out on!
 
 🎨 On [colornames.org](https://colornames.org/) people from all over the word come together to name colors.
-This package makes the 10.000 most upvoted colors available in your Flutter app!
-That's the best 0.059 % of all 16.7 million RGB colors!
+This package makes the 9.000 most upvoted colors available in your Flutter app!
+That's the best 0.053% of all 16.7 million RGB colors!
+<!-- This package makes the 8.000 most upvoted colors available in your Flutter app!
+That's the best 0.047% of all 16.7 million RGB colors! -->
+<!-- This package makes the 5.000 most upvoted colors available in your Flutter app!
+That's the best 0.029% of all 16.7 million RGB colors! -->
+<!--This package makes the 10.000 most upvoted colors available in your Flutter app!
+That's the best 0.059 % of all 16.7 million RGB colors!-->
+<!-- percentage: number / 256^3 -->
 
+Join the fun and say hello to `Colorz.tardis`, `Colorz.driedToothpaste` and `Colors.greenBanana`!
+Make use of `Colorz.cookieMonsterCottonCandy`, `Colorz.unoReverseCardBlue` and `Colorz.darkRavenclawBlue`!
+Meet `Colorz.arabicaMint`, `Colorz.pickleyCactus` and `Colorz.margesHair`!
+<!-- Highlights of 8.000:
+Join the fun and say hello to `Colorz.pickleyCactus`, `Colorz.arabicaMint` and `...`!
+Make use of `Colorz.cookiemonster`, `Colorz.unoReverseCardBlue` and `Colorz.darkRavenclawBlue`!
+Meet `Colorz.driedToothpaste`, `...` and `Colorz.margesHair`! -->
+<!-- Highlights of 5.000:
+Join the fun and say hello to `Colorz.pickleyCactus`, `Colorz.arabicaMint` and `...`!
+Make use of `Colorz.cookiemonster`, `Colorz.unoReverseCardBlue` and `Colorz.darkRavenclawBlue`!
+Meet `...`, `...` and `Colorz.margesHair`! -->
+<!--Highlights from top 10.000:
 Join the fun and say hello to `Colorz.pickleyCactus`, `Colorz.arabicaMint` and `Colors.greenBanana`!
 Make use of `Colorz.cookieMonsterCottonCandy`, `Colorz.unoReverseCardGreen` and `Colorz.darkRavenclawBlue`!
-Meet `Colorz.mintyFreshToothpaste`, `Colorz.radioactiveMarijuana` and `Colorz.margesHair`!
+Meet `Colorz.mintyFreshToothpaste`, `Colorz.radioactiveMarijuana` and `Colorz.margesHair`!-->
 
 ⚠️ **Disclaimer:**
 The color names are chosen by the community and are not censored. Therefore, color names may include words considered offensive, vulgar or obscene.

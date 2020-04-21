@@ -11,7 +11,7 @@ import 'package:mustache/mustache.dart';
 
 const _url = 'https://colornames.org/download/colornames.zip';
 const _generatedFilePath = 'lib/colorz.dart';
-const _numberOfColors = 10000;
+const _numberOfColors = 9000;
 
 Future<void> main() async {
   print('Hello.');
