@@ -14,7 +14,7 @@ The color names are chosen by the community and are not censored. Therefore, col
 
 ❤️ **Want to contribute?**
 Visit [colornames.org](https://colornames.org/) and provide some names or vote for colors to improve this package!
-If you find any issues or have ideas for improvements for this package, don't hesitate to [create an issue in the GitHub repository](https://github.com/marcelgarus/colorz/issues/new).
+If you find any issues or have ideas for improvements of this package, don't hesitate to [create an issue in the GitHub repository](https://github.com/marcelgarus/colorz/issues/new).
 
 📦 **Updates of this package:**
 From time to time, I'll re-generate the `Colorz` and upload a major version upgrade to [pub.dev](https://pub.dev/) (because there may be incompatibilities with previous versions).
