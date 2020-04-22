@@ -17,7 +17,7 @@ Visit [colornames.org](https://colornames.org/) and provide some names or vote f
 If you find any issues or have ideas for improvements for this package, don't hesitate to [create an issue in the GitHub repository](https://github.com/marcelgarus/colorz/issues/new).
 
 📦 **Updates of this package:**
-From time to time, I'll re-generate the `Colorz` and upload a major version upgrade to [pub.dev](https://pub.dev/) (because there may be incompatibilities with former versions).
+From time to time, I'll re-generate the `Colorz` and upload a major version upgrade to [pub.dev](https://pub.dev/) (because there may be incompatibilities with previous versions).
 If you want to generate the `Colorz` yourself, go into the root directory of the [<kbd>colorz</kbd>](https://github.com/marcelgarus/colorz) package and run `dart generator/generator.dart`.
 
 🤔 **Why only use the top 9.000 colors and not something round, like the top 10.000?**
