@@ -6,6 +6,7 @@ import 'package:archive/archive.dart';
 import 'package:console/console.dart' hide Color;
 import 'package:dartx/dartx.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:mustache/mustache.dart';
 
@@ -146,6 +147,8 @@ String _generateSource(Iterable<NamedColor> colors) {
     File('generator/colorz.tmpl').readAsStringSync(),
     htmlEscapeValues: false,
   ).renderString({
+    'date': DateFormat.yMMMd().format(DateTime.now()),
+    'numberOfColors': _numberOfColors,
     'method': {
       for (final color in colors)
         {

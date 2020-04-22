@@ -2,15 +2,14 @@
 
 import 'dart:ui';
 
-/// [Color] constants which represent color names from
-/// [colornames.org](https://colornames.org/).
+/// [Color] constants represented by the 9000 most upvoted color names from
+/// [colornames.org](https://colornames.org/) as of Apr 22, 2020.
 class Colorz {
-  // This class is not meant to be instatiated or extended; this constructor
+  // This class is not meant to be instantiated or extended; this constructor
   // prevents instantiation and extension.
   // ignore: unused_element
   Colorz._();
 
-  // The 10000 most upvoted colors from [colornames.org](https://colorsnames.org/).
   static const lilHuddy = Color(0xFF000000);
   static const white = Color(0xFFFFFFFF);
   static const red = Color(0xFFFF0000);
