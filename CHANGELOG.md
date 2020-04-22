@@ -1,3 +1,8 @@
+## [0.1.0] - 2020-04-21
+
+* Updated readme.
+* Add generation date to generated file.
+
 ## [0.0.6] - 2020-04-21
 
 * Add example.

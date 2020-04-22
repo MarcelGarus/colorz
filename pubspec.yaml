@@ -1,6 +1,6 @@
 name: colorz
-version: 0.0.6
 description: "🎨 Color constants represented by color names from colornames.org."
+version: 0.1.0
 homepage: https://github.com/marcelgarus/colorz
 
 environment:
