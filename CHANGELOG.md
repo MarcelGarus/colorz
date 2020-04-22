@@ -1,3 +1,7 @@
+## [1.0.0] - 2020-04-21
+
+* Package considered stable.
+
 ## [0.1.0] - 2020-04-21
 
 * Updated readme.

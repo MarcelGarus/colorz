@@ -21,5 +21,5 @@ From time to time, I'll re-generate the `Colorz` and upload a major version upgr
 If you want to generate the `Colorz` yourself, go into the root directory of the [<kbd>colorz</kbd>](https://github.com/marcelgarus/colorz) package and run `dart generator/generator.dart`.
 
 🤔 **Why only use the top 9.000 colors and not something round, like the top 10.000?**
-[pub.dev](https://pub.dev/) runs dartdoc with limited space.
+[pub.dev](https://pub.dev/) runs dartdoc with limited space:
 ![pub error](pub_error.jpg)
