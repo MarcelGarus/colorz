@@ -1,3 +1,7 @@
+## [0.0.6] - 2020-04-21
+
+* Add example.
+
 ## [0.0.5] - 2020-04-21
 
 * Increase number of `Colorz` to 9.000.
