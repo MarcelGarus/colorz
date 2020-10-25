@@ -12,10 +12,11 @@ import 'package:mustache/mustache.dart';
 
 const _url = 'https://colornames.org/download/colornames.zip';
 const _generatedFilePath = 'lib/colorz.dart';
-const _numberOfColors = 9000;
+const _maxNumberOfColors = 9000;
+const _numberOfRequiredUpvotes = 3;
 
 Future<void> main() async {
-  print('Hello.');
+  print('Generating Colorz library.');
   Console.init();
   final data = await _runTask('Downloading colornames...', _downloadColorNames);
   final unzipped = await _runTask('Unzipping data...', () => _unzip(data));
@@ -23,10 +24,10 @@ Future<void> main() async {
   final sorted = await _runTask(
       'Preparing identifiers...', () => _prepareIdentifiers(parsed.toList()));
   final source = await _runTask('Generating source...',
-      () => _generateSource(sorted.take(_numberOfColors)));
+      () => _generateSource(sorted.take(_maxNumberOfColors)));
   await _runTask(
       'Writing to $_generatedFilePath...', () => _writeSource(source));
-  print('Done.');
+  print('Generated Colorz library.');
 }
 
 Future<T> _runTask<T>(String description, FutureOr<T> Function() task) async {
@@ -58,14 +59,17 @@ Uint8List _unzip(Uint8List bytes) {
 class NamedColor {
   NamedColor({
     @required this.hexColor,
-    @required this.name,
+    @required this.identifierName,
+    @required this.originalName,
     @required this.upvotes,
   })  : assert(hexColor != null),
-        assert(name != null),
+        assert(identifierName != null),
+        assert(originalName != null),
         assert(upvotes != null);
 
   final String hexColor;
-  final String name;
+  final String identifierName;
+  final String originalName;
   final int upvotes;
 }
 
@@ -73,6 +77,7 @@ Future<Set<NamedColor>> _parse(Uint8List bytes) async {
   final colors = <NamedColor>{};
   final lines = String.fromCharCodes(bytes)
       .split('\n')
+      .skip(1) // first line is header
       .where((line) => !line.startsWith('#'))
       .where((line) => line.isNotEmpty)
       .toList();
@@ -92,17 +97,17 @@ NamedColor _parseColor(String line) {
   final parts = line.split(',').map((part) => part.trim()).toList();
   final hexCode = parts[0];
   final name = parts[1];
-  final confidence = parts[2];
-  final votes = parts[3];
+  final votes = parts[2];
 
   return NamedColor(
     hexColor: hexCode.toUpperCase(),
-    name: _nameToMethodName(name),
-    upvotes: (int.parse(votes) * double.parse(confidence)).round(),
+    identifierName: _nameToIdentifier(name),
+    originalName: name,
+    upvotes: int.parse(votes),
   );
 }
 
-String _nameToMethodName(String colorName) {
+String _nameToIdentifier(String colorName) {
   final words = colorName
       .replaceAll("'", '')
       .replaceAll('-', ' ')
@@ -121,25 +126,27 @@ String _nameToMethodName(String colorName) {
 }
 
 List<NamedColor> _prepareIdentifiers(List<NamedColor> colors) {
-  final reservedNames = ['class', 'switch', 'on', 'in'];
+  final reservedNames = ['class', 'switch', 'on', 'in', 'void'];
 
-  // Dart identifiers cannot start with numbers or other characters.
   colors = colors
-      .where((color) => color.name.startsWith(RegExp('[a-z]|[A-Z]')))
-      .where((color) => !reservedNames.contains(color.name))
+      // Remove colors which are named like reserved dart keywords or could not be valid identifiers.
+      .where((color) => color.identifierName.startsWith(RegExp('[a-z]|[A-Z]')))
+      .where((color) => !reservedNames.contains(color.identifierName))
+      // Remove colors with less than _numberOfRequiredUpvotes votes.
+      .where((color) => color.upvotes >= _numberOfRequiredUpvotes)
       .toList();
 
   // Because we turn color names into Dart identifiers, two names may map to the
   // same identifier. For example, "Some blue" and "Some Blue" both map to
   // "someBlue". In these cases, we choose the more popular color.
-  final colorsByName = colors.groupBy((color) => color.name);
+  final colorsByName = colors.groupBy((color) => color.identifierName);
   colors = <NamedColor>[
     for (final name in colorsByName.keys)
       colorsByName[name].reduce((a, b) => a.upvotes > b.upvotes ? a : b),
   ];
 
-  // Sort colors by popularity.
-  return colors..sort((a, b) => b.upvotes.compareTo(a.upvotes));
+  // Sort colors by name.
+  return colors..sort((a, b) => a.identifierName.compareTo(b.identifierName));
 }
 
 String _generateSource(Iterable<NamedColor> colors) {
@@ -148,14 +155,17 @@ String _generateSource(Iterable<NamedColor> colors) {
     htmlEscapeValues: false,
   ).renderString({
     'date': DateFormat.yMMMd().format(DateTime.now()),
-    'numberOfColors': _numberOfColors,
-    'method': {
+    'numberOfColors': _maxNumberOfColors,
+    'numberOfRequiredUpvotes': _numberOfRequiredUpvotes,
+    'method': [
       for (final color in colors)
         {
-          'name': color.name,
+          'identifier': color.identifierName,
+          'name': color.originalName,
           'hexColor': color.hexColor,
+          'upvotes': color.upvotes,
         }
-    },
+    ],
   });
 }
 
