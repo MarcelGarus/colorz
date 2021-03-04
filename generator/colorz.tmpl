@@ -2,8 +2,9 @@
 
 import 'dart:ui';
 
-/// [Color] constants represented by the {{numberOfColors}} most upvoted color names from
+/// [Color] constants represented by the {{numberOfColors}} most upvoted* color names from
 /// [colornames.org](https://colornames.org/) as of {{date}}.
+/// * with at least {{numberOfRequiredUpvotes}} votes
 class Colorz {
   // This class is not meant to be instantiated or extended; this constructor
   // prevents instantiation and extension.
@@ -11,6 +12,8 @@ class Colorz {
   Colorz._();
 
   {{#method}}
-  static const {{name}} = Color(0xFF{{hexColor}});
+  /// [{{name}}](https://colornames.org/color/{{hexColor}}) - {{upvotes}} upvotes
+  static const {{identifier}} = Color(0xFF{{hexColor}});
+
   {{/method}}
 }
