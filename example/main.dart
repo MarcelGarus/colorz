@@ -7,9 +7,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Column(
         children: [
-          Container(height: 50, color: Colorz.aDisneyVillain),
-          Container(height: 50, color: Colorz.almostMidnight),
-          Container(height: 50, color: Colorz.raspberryFruityCream),
+          Container(height: 50, color: Colorz.itsStillBasicallyBlack),
+          Container(height: 50, color: Colorz.midnightPlum),
+          Container(height: 50, color: Colorz.blueRaspberryCrumble),
         ],
       ),
     );

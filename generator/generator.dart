@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:mustache/mustache.dart';
 
-const _url = 'https://colornames.org/download/colornames.zip';
+final _url = Uri.parse('https://colornames.org/download/colornames.zip');
 const _generatedFilePath = 'lib/colorz.dart';
 const _numberOfColors = 9000;
 
@@ -57,12 +57,10 @@ Uint8List _unzip(Uint8List bytes) {
 @immutable
 class NamedColor {
   NamedColor({
-    @required this.hexColor,
-    @required this.name,
-    @required this.upvotes,
-  })  : assert(hexColor != null),
-        assert(name != null),
-        assert(upvotes != null);
+    required this.hexColor,
+    required this.name,
+    required this.upvotes,
+  });
 
   final String hexColor;
   final String name;
@@ -73,6 +71,7 @@ Future<Set<NamedColor>> _parse(Uint8List bytes) async {
   final colors = <NamedColor>{};
   final lines = String.fromCharCodes(bytes)
       .split('\n')
+      .skip(1)
       .where((line) => !line.startsWith('#'))
       .where((line) => line.isNotEmpty)
       .toList();
@@ -92,13 +91,12 @@ NamedColor _parseColor(String line) {
   final parts = line.split(',').map((part) => part.trim()).toList();
   final hexCode = parts[0];
   final name = parts[1];
-  final confidence = parts[2];
-  final votes = parts[3];
+  final votes = parts[2];
 
   return NamedColor(
     hexColor: hexCode.toUpperCase(),
     name: _nameToMethodName(name),
-    upvotes: (int.parse(votes) * double.parse(confidence)).round(),
+    upvotes: int.parse(votes).round(),
   );
 }
 
@@ -121,7 +119,16 @@ String _nameToMethodName(String colorName) {
 }
 
 List<NamedColor> _prepareIdentifiers(List<NamedColor> colors) {
-  final reservedNames = ['class', 'switch', 'on', 'in'];
+  final reservedNames = [
+    'abstract', 'as', 'assert', 'async', 'await', 'break', 'case', 'catch', // .
+    'class', 'const', 'continue', 'covariant', 'default', 'deferred', 'do',
+    'dynamic', 'else', 'enum', 'export', 'extends', 'extension', 'external',
+    'factory', 'false', 'final', 'finally', 'for', 'Function', 'get', 'hide',
+    'if', 'implements', 'import', 'in', 'interface', 'is', 'library', 'mixin',
+    'new', 'null', 'on', 'operator', 'part', 'rethrow', 'return', 'set', 'show',
+    'static', 'super', 'switch', 'sync', 'this', 'throw', 'true', 'try',
+    'typedef', 'var', 'void', 'void', 'while', 'with', 'yield',
+  ];
 
   // Dart identifiers cannot start with numbers or other characters.
   colors = colors
@@ -135,7 +142,7 @@ List<NamedColor> _prepareIdentifiers(List<NamedColor> colors) {
   final colorsByName = colors.groupBy((color) => color.name);
   colors = <NamedColor>[
     for (final name in colorsByName.keys)
-      colorsByName[name].reduce((a, b) => a.upvotes > b.upvotes ? a : b),
+      colorsByName[name]!.reduce((a, b) => a.upvotes > b.upvotes ? a : b),
   ];
 
   // Sort colors by popularity.

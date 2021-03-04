@@ -1,17 +1,19 @@
 name: colorz
 description: "🎨 Color constants represented by color names from colornames.org."
-version: 1.0.0
-homepage: https://github.com/marcelgarus/colorz
+version: 2.0.0
+repository: https://github.com/marcelgarus/colorz
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  archive: ^2.0.13
-  console: ^3.1.0
-  dartx: ^0.3.0
-  http: ^0.12.0+4
-  mustache: ^1.1.1
-  intl: ">=0.15.0 <1.0.0"
+
+  # for generator
+  archive: ^3.1.2  # for unzipping the data
+  console: ^3.1.0  # for beautiful output
+  dartx: ^0.6.0    # for utilities
+  http: ^0.13.0    # for downloading data
+  mustache: ^1.1.1 # for templating
+  intl: ">=0.15.0 <1.0.0" # for formatting dates
